@@ -27,9 +27,6 @@ const styles = {
 }
 
 class NavigationBar extends Component {
-  componentWillMount() {
-    console.log('props:bar', this.props)
-  }
   render() {
     const { classes, title } = this.props
     return (
@@ -39,6 +36,7 @@ class NavigationBar extends Component {
             <IconButton
               color="inherit"
               aria-label="Menu"
+              className={classes.menuButton}
               onClick={() => this.props.toggleDrawer()}
             >
               <MenuIcon />

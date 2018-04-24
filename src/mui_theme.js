@@ -1,12 +1,12 @@
 import { createMuiTheme } from 'material-ui/styles'
-import red from 'material-ui/colors/red'
+import grey from 'material-ui/colors/grey'
 
 export const theme = createMuiTheme({
   palette: {
     action: {
       active: '#D8DEE9'
     },
-    primary: red,
+    primary: grey,
     background: {
       paper: '#2E3440'
     },
@@ -15,7 +15,6 @@ export const theme = createMuiTheme({
     }
   },
   typography: {
-    // Use the system font over Roboto.
     fontFamily:
         'Raleway, sans-serif',
   },

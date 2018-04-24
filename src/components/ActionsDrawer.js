@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
+import List from 'material-ui/List'
 import { withStyles } from 'material-ui/styles'
 import classNames from 'classnames'
 import Drawer from 'material-ui/Drawer'
-import List from 'material-ui/List'
 import Divider from 'material-ui/Divider'
-import { mailFolderListItems, otherMailFolderListItems } from '../UTILS/tileData'
+import ActionsDrawerIcons from './ActionsDrawerIcons'
 
 const drawerWidth = 240
 
@@ -76,13 +76,6 @@ const styles = theme => ({
 })
 
 class ActionsDrawer extends Component {
-  componentWillMount() {
-    console.log('props:drawer', this.props)
-  }
-  componentWillUpdate() {
-    console.log('componen will up', this.props.open)
-  }
-
   render() {
     const { classes } = this.props
 
@@ -98,9 +91,9 @@ class ActionsDrawer extends Component {
           open={this.props.open}
         >
           <Divider />
-          <List>{mailFolderListItems}</List>
-          <Divider />
-          <List>{otherMailFolderListItems}</List>
+          <List>
+            <ActionsDrawerIcons />
+          </List>
         </Drawer>
       </div>
     )

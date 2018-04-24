@@ -29,6 +29,9 @@ body {
   color: #D8DEE9 !important;
 }
 
+.backdrop {
+  margin: 84px 20px 20px 10px !important;;
+}
 .map {
   margin: 84px 10px 10px 10px;
   position: relative;
@@ -36,9 +39,23 @@ body {
 
 .actionsbar {
   margin-top: 84px;
-  height: 100vh
+  height: 100vh;
 }
 
 .a.mapboxgl-ctrl-logo {
   opacity: .2 !important;
+}
+
+.loading {
+  position: fixed;
+  z-index: 1500;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.loading::after {
+  display: none !important;
 }
