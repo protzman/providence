@@ -8,12 +8,14 @@ import AddIcon from '@material-ui/icons/Add'
 import Slide from 'material-ui/transitions/Slide'
 import green from 'material-ui/colors/green'
 import { withStyles } from 'material-ui/styles'
+import { Switch, Route } from 'react-router-dom'
 
 import classNames from 'classnames'
 import './App.css'
 import { theme } from './mui_theme'
 import NavigationBar from './components/NavigationBar'
 import ActionsDrawer from './components/ActionsDrawer'
+import Threats from './components/Threats'
 
 import Map from './components/Map'
 
@@ -65,11 +67,11 @@ class App extends Component {
   handleClick = () => {
     console.log('snack time!')
     this.setState({ snack: true })
-  };
+  }
 
   handleClose = () => {
     this.setState({ snack: false })
-  };
+  }
 
   toggleDrawer() {
     console.log('called')
@@ -82,17 +84,21 @@ class App extends Component {
       <MuiThemeProvider theme={theme}>
 
         <div className="App">
+
           <NavigationBar
             title="Providence"
             toggleDrawer={() => this.toggleDrawer()}
           />
+
           <ActionsDrawer
             open={this.state.open}
             onRequestClose={boolean => this.setState({ open: boolean })}
           />
+
           <Button variant="fab" className={classes.fab} color={classes.fab.color} onClick={this.handleClick} >
             <AddIcon />
           </Button>
+
           <Snackbar
             open={this.state.snack}
             autoHideDuration={6000}
@@ -112,8 +118,12 @@ class App extends Component {
             }
             className={this.state.open ? classes.snackbarDrawerOpen : classes.snackbarDrawerClosed}
           />
-          <Map className="map" />
-          <div />
+
+          <Switch>
+            <Route exact path="/map" component={Map} />
+            <Route exact path="/threats" component={Threats} />
+          </Switch>
+
         </div>
       </MuiThemeProvider>
     )

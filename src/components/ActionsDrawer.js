@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
-import List from 'material-ui/List'
 import { withStyles } from 'material-ui/styles'
 import classNames from 'classnames'
 import Drawer from 'material-ui/Drawer'
@@ -81,7 +80,6 @@ class ActionsDrawer extends Component {
 
     return (
       <div className={classes.root}>
-
         <Drawer
           variant="permanent"
           classes={{
@@ -91,9 +89,7 @@ class ActionsDrawer extends Component {
           open={this.props.open}
         >
           <Divider />
-          <List>
-            <ActionsDrawerIcons />
-          </List>
+          <ActionsDrawerIcons />
         </Drawer>
       </div>
     )

@@ -9,13 +9,13 @@ import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1
   },
   body: {
-    background: '#2E3440',
-    color: '#D8DEE9'
+    background: theme.palette.background.paper,
+    color: theme.palette.text.primary
   },
   flex: {
     flex: 1,
@@ -24,7 +24,7 @@ const styles = {
     marginLeft: -12,
     marginRight: 20,
   },
-}
+})
 
 class NavigationBar extends Component {
   render() {

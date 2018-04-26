@@ -32,9 +32,27 @@ body {
 .backdrop {
   margin: 84px 20px 20px 10px !important;;
 }
+
 .map {
   margin: 84px 10px 10px 10px;
   position: relative;
+}
+
+.contentcontainer {
+  background: #2E3440 !important;
+  color: #D8DEE9 !important;
+  margin: 84px 10px 10px 81px;
+  position: relative;
+}
+
+.contentheader {
+  padding-top: 18px;
+  padding-left: 174px;
+
+}
+
+.content {
+  padding: 0 10px 10px 10px !important;
 }
 
 .actionsbar {
@@ -58,4 +76,11 @@ body {
 
 .loading::after {
   display: none !important;
+}
+
+.tooltip {
+  opacity: 0.5 !important;
+  background: #D8DEE9 !important;
+  color: #2E3440 !important;
+  border-radius: 2px !important;
 }
