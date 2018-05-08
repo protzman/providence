@@ -14,6 +14,7 @@ import MailIcon from '@material-ui/icons/Mail'
 import DeleteIcon from '@material-ui/icons/Delete'
 import ReportIcon from '@material-ui/icons/Report'
 import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive'
+import TimelineIcon from '@material-ui/icons/Timeline'
 
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import WifiLockIcon from '@material-ui/icons/WifiLock'
@@ -22,6 +23,8 @@ import LeakAddIcon from '@material-ui/icons/LeakAdd'
 import VpnLockIcon from '@material-ui/icons/VpnLock'
 import WhatsHotIcon from '@material-ui/icons/Whatshot'
 import SettingsIcon from '@material-ui/icons/Settings'
+
+import { withRouter } from 'react-router-dom'
 
 import Divider from 'material-ui/Divider'
 
@@ -53,11 +56,11 @@ class ActionsDrawerIcons extends Component {
             </ListItemIcon>
             <ListItemText primary="Steal Identity" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => this.props.history.push('/metrics')}>
             <ListItemIcon>
-              <WifiLockIcon />
+              <TimelineIcon />
             </ListItemIcon>
-            <ListItemText primary="Hack Computer" />
+            <ListItemText primary="Network Metrics" />
           </ListItem>
           <ListItem button>
             <ListItemIcon>
@@ -77,7 +80,7 @@ class ActionsDrawerIcons extends Component {
             </ListItemIcon>
             <ListItemText primary="Global Shutdown" />
           </ListItem>
-          <ListItem button data-tip="">
+          <ListItem button data-tip="" onClick={() => this.props.history.push('/threats')}>
             <ListItemIcon>
               <Badge classes={{ badge: classes.badge }} badgeContent="" color="error">
                 <WhatsHotIcon />
@@ -158,4 +161,4 @@ ActionsDrawerIcons.propTypes = {
   classes: PropTypes.object.isRequired,
 }
 
-export default withStyles(styles, { withTheme: true })(ActionsDrawerIcons)
+export default withRouter(withStyles(styles, { withTheme: true })(ActionsDrawerIcons))

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withStyles } from 'material-ui/styles'
+import { withRouter } from 'react-router-dom'
 import AppBar from 'material-ui/AppBar'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
@@ -41,7 +42,11 @@ class NavigationBar extends Component {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={classes.flex}>
+            <Typography
+              variant="title"
+              color="inherit"
+              className={classes.flex}
+            >
               {title}
             </Typography>
             <Button color="inherit">Login</Button>
@@ -55,7 +60,8 @@ class NavigationBar extends Component {
 NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
-  toggleDrawer: PropTypes.func.isRequired
+  toggleDrawer: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(NavigationBar)
+export default withRouter(withStyles(styles)(NavigationBar))

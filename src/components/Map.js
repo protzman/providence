@@ -63,12 +63,16 @@ class Map extends Component {
     //   })
     //   setTimeout(() => { this.setState({ loaded: true, map }) }, 2000)
     // })
+    this.drawArc(map, [-77.032, 38.913], [37.617, 55.755])
+    // t0his.drawArc(map, [-77.032, 38.913], [116.407, 39.904])
+  }
 
+  drawArc(map, from, to) {
     // Washington DC
-    const origin = [-77.032, 38.913]
+    const origin = from
 
     // Moscow
-    const destination = [37.617, 55.755]
+    const destination = to
 
     // A simple line from origin to destination.
     const route = {
@@ -108,7 +112,7 @@ class Map extends Component {
     // Number of steps to use in the arc and animation, more steps means
     // a smoother arc and animation, but too many steps will result in a
     // low frame rate
-    const steps = 500
+    const steps = 300
 
     // Draw an arc between the `origin` & `destination` of the two points
     for (let i = 0; i < dist; i += dist / steps) {
@@ -119,6 +123,9 @@ class Map extends Component {
     // Update the route with calculated arc coordinates
     route.features[0].geometry.coordinates = arc
 
+    // Get a temp number to make the source for this iteration unique
+    const rand = faker.random.number().toString()
+
     // Used to increment the value of the point measurement against the route.
     let counter = 0
 
@@ -126,19 +133,19 @@ class Map extends Component {
       setTimeout(() => { this.setState({ loaded: true, map }) }, 2000)
 
       // Add a source and layer displaying a point which will be animated in a circle.
-      map.addSource('route', {
+      map.addSource(`route-${rand}`, {
         type: 'geojson',
         data: route
       })
 
-      map.addSource('point', {
+      map.addSource(`point-${rand}`, {
         type: 'geojson',
         data: geopoint
       })
 
       map.addLayer({
-        id: 'route',
-        source: 'route',
+        id: `route-${rand}`,
+        source: `route-${rand}`,
         type: 'line',
         layout: {
           'line-cap': 'round',
@@ -153,8 +160,8 @@ class Map extends Component {
 
       // TODO make radius bigger or smaller based on data amount
       map.addLayer({
-        id: 'point',
-        source: 'point',
+        id: `point-${rand}`,
+        source: `point-${rand}`,
         type: 'circle',
         paint: {
           'circle-radius': 4,
@@ -177,12 +184,11 @@ class Map extends Component {
         // )
 
         // Update the source with this new data.
-        map.getSource('point').setData(geopoint)
+        map.getSource(`point-${rand}`).setData(geopoint)
 
         // Request the next frame of animation so long the end has not been reached.
         if (counter < steps) {
           requestAnimationFrame(animate)
-          console.log('in chea')
         }
 
         counter += 1

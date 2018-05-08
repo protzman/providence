@@ -6,11 +6,11 @@ $nord03: "#4C566A"
 $nord04: "#D8DEE9" 
 $nord05: "#E5E9F0" 
 $nord06: "#ECEFF4" 
-$nord07: "#8FBCBB" 
-$nord08: "#88C0D0" 
-$nord09: "#81A1C1" 
-$nord10: "#5E81AC" 
-$nord11: "#BF616A" 
+$nord07: "#8FBCBB" rgba(143,188,187)
+$nord08: "#88C0D0" rgba(136,192,208)
+$nord09: "#81A1C1" rgba(129,161,193)
+$nord10: "#5e81ac" rgba(94,129,172)
+$nord11: "#BF616A" rgba(191,97,106)
 $nord12: "#D08770" 
 $nord13: "#EBCB8B" 
 $nord14: "#A3BE8C" 
@@ -30,18 +30,11 @@ body {
 }
 
 .backdrop {
-  margin: 84px 20px 20px 10px !important;;
+  margin: 84px 20px 20px 10px !important;
 }
 
 .map {
   margin: 84px 10px 10px 10px;
-  position: relative;
-}
-
-.contentcontainer {
-  background: #2E3440 !important;
-  color: #D8DEE9 !important;
-  margin: 84px 10px 10px 81px;
   position: relative;
 }
 
@@ -52,7 +45,31 @@ body {
 }
 
 .content {
-  padding: 0 10px 10px 10px !important;
+  padding: 84px 10px 10px 81px;
+  margin: 84px 10px 10px 10px;
+  background: #2E3440 !important;
+  color: #D8DEE9 !important;
+  position: relative;
+}
+
+.logincontainer {
+  background: #2E3440 !important;
+  color: #D8DEE9 !important;
+  margin: 84px 10px 10px 10px;
+  position: relative;
+}
+
+.logincontent {
+  text-align: center;
+  width: 450px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loginitem {
+  margin-top: 4em;
 }
 
 .actionsbar {
@@ -63,6 +80,7 @@ body {
 .a.mapboxgl-ctrl-logo {
   opacity: .2 !important;
 }
+
 
 .loading {
   position: fixed;

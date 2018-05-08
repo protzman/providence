@@ -14,7 +14,7 @@ class Threats extends Component {
   render() {
     const { classes } = this.props
     return (
-      <div className="contentcontainer absolute top right left bottom" >
+      <div className="content absolute top right left bottom" >
         <Typography className="contentheader" classes={{ root: classes.root }} variant="display3" gutterBottom>
         Recent Threats
         </Typography>

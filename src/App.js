@@ -5,12 +5,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import Button from 'material-ui/Button'
 import Snackbar from 'material-ui/Snackbar'
 import AddIcon from '@material-ui/icons/Add'
-import Slide from 'material-ui/transitions/Slide'
-import green from 'material-ui/colors/green'
 import { withStyles } from 'material-ui/styles'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, withRouter } from 'react-router-dom'
 
-import classNames from 'classnames'
 import './App.css'
 import { theme } from './mui_theme'
 import NavigationBar from './components/NavigationBar'
@@ -18,6 +15,8 @@ import ActionsDrawer from './components/ActionsDrawer'
 import Threats from './components/Threats'
 
 import Map from './components/Map'
+import Metrics from './components/Metrics'
+import LoginPage from './components/LoginPage'
 
 const styles = ({
   // theme already delcared in upper scope so just use styles
@@ -31,7 +30,6 @@ const styles = ({
     position: 'absolute',
     top: theme.spacing.unit * 6,
     right: theme.spacing.unit * 6,
-    color: green,
     zIndex: 1300
   },
   snackbarDrawerClosed: {
@@ -60,7 +58,8 @@ class App extends Component {
 
     this.state = {
       open: false,
-      snack: false
+      snack: false,
+      loggedin: false
     }
   }
 
@@ -78,6 +77,11 @@ class App extends Component {
     this.setState({ open: !this.state.open })
   }
 
+  loginRequest(e) {
+    this.setState({ loggedin: true })
+    this.props.history.push('/threats')
+  }
+
   render() {
     const { classes } = this.props
     return (
@@ -87,15 +91,16 @@ class App extends Component {
 
           <NavigationBar
             title="Providence"
+            open={this.state.open}
             toggleDrawer={() => this.toggleDrawer()}
           />
 
-          <ActionsDrawer
+          {this.state.loggedin ? <ActionsDrawer
             open={this.state.open}
             onRequestClose={boolean => this.setState({ open: boolean })}
-          />
+          /> : ''}
 
-          <Button variant="fab" className={classes.fab} color={classes.fab.color} onClick={this.handleClick} >
+          <Button variant="fab" className={classes.fab} onClick={this.handleClick} >
             <AddIcon />
           </Button>
 
@@ -120,6 +125,8 @@ class App extends Component {
           />
 
           <Switch>
+            <Route exact path="/" render={() => <LoginPage login={e => this.loginRequest(e)} />} />
+            <Route exact path="/metrics" component={Metrics} />
             <Route exact path="/map" component={Map} />
             <Route exact path="/threats" component={Threats} />
           </Switch>
@@ -132,6 +139,7 @@ class App extends Component {
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(App)
+export default withRouter(withStyles(styles)(App))
