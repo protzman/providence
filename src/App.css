@@ -102,3 +102,8 @@ body {
   color: #2E3440 !important;
   border-radius: 2px !important;
 }
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+}

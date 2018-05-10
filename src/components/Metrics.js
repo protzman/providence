@@ -169,13 +169,13 @@ class Metrics extends Component {
     this.state = {
       layout: {
         lg: [{
-          i: 'a', x: 0, y: 0, w: 4, h: 3, isResizeable: true
+          i: 'a', x: 0, y: 0, w: 4, h: 5, isResizeable: true
         },
         {
-          i: 'd', x: 6, y: 0, w: 8, h: 3, isResizeable: true
+          i: 'd', x: 6, y: 0, w: 8, h: 5, isResizeable: true
         },
         {
-          i: 'c', x: 0, y: 4, w: 12, h: 3, isResizeable: true
+          i: 'c', x: 0, y: 4, w: 12, h: 4, isResizeable: true
         }]
       }
     }
@@ -213,9 +213,6 @@ class Metrics extends Component {
 
     return (
       <div className="content absolute top right left bottom" >
-        <Typography className="contentheader" classes={{ root: classes.root }} variant="display3" gutterBottom>
-        Network Metrics
-        </Typography>
         <ResponsiveGridLayout
           className="layout"
           layouts={this.state.layout}

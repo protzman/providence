@@ -91,6 +91,7 @@ class App extends Component {
 
           <NavigationBar
             title="Providence"
+            route={this.props.history.location.pathname}
             open={this.state.open}
             toggleDrawer={() => this.toggleDrawer()}
           />

@@ -4,11 +4,14 @@ import classNames from 'classnames'
 import { withStyles } from 'material-ui/styles'
 import { withRouter } from 'react-router-dom'
 import AppBar from 'material-ui/AppBar'
+import _ from 'lodash'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
+import ChevronIcon from '@material-ui/icons/ChevronRight'
+import Breadcrumb from './Breadcrumb'
 
 const styles = theme => ({
   root: {
@@ -18,18 +21,22 @@ const styles = theme => ({
     background: theme.palette.background.paper,
     color: theme.palette.text.primary
   },
-  flex: {
-    flex: 1,
+  spacer: {
+    flex: 1
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
   },
+  breadcrumb: {
+    marginLeft: 20,
+    marginRight: 20
+  }
 })
 
 class NavigationBar extends Component {
   render() {
-    const { classes, title } = this.props
+    const { classes, title, route } = this.props
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classNames(classes.body)}>
@@ -37,6 +44,7 @@ class NavigationBar extends Component {
             <IconButton
               color="inherit"
               aria-label="Menu"
+              disabled={route === '/'}
               className={classes.menuButton}
               onClick={() => this.props.toggleDrawer()}
             >
@@ -45,11 +53,13 @@ class NavigationBar extends Component {
             <Typography
               variant="title"
               color="inherit"
-              className={classes.flex}
             >
               {title}
             </Typography>
-            <Button color="inherit">Login</Button>
+            {route && route !== '/' ? <Breadcrumb route={_.capitalize(_.trim(route, '/'))} /> : ''}
+            <div className={classes.spacer} />
+            <Button color="inherit" className={classes.navButton}>Other Button</Button>
+            <Button color="inherit" className={classes.navButton}>Login</Button>
           </Toolbar>
         </AppBar>
       </div>
