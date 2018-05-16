@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import classNames from 'classnames'
 import { withStyles } from 'material-ui/styles'
@@ -10,7 +12,9 @@ import Typography from 'material-ui/Typography'
 import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import MenuIcon from '@material-ui/icons/Menu'
-import ChevronIcon from '@material-ui/icons/ChevronRight'
+import PersonIcon from '@material-ui/icons/Person'
+import Avatar from '@material-ui/core/Avatar'
+
 import Breadcrumb from './Breadcrumb'
 
 const styles = theme => ({
@@ -31,12 +35,17 @@ const styles = theme => ({
   breadcrumb: {
     marginLeft: 20,
     marginRight: 20
-  }
+  },
+  leftIcon: {
+    marginRight: theme.spacing.unit,
+  },
 })
 
 class NavigationBar extends Component {
   render() {
-    const { classes, title, route } = this.props
+    const {
+      classes, title, route, loggedin
+    } = this.props
     return (
       <div className={classes.root}>
         <AppBar position="static" className={classNames(classes.body)}>
@@ -59,7 +68,15 @@ class NavigationBar extends Component {
             {route && route !== '/' ? <Breadcrumb route={_.capitalize(_.trim(route, '/'))} /> : ''}
             <div className={classes.spacer} />
             <Button color="inherit" className={classes.navButton}>Other Button</Button>
-            <Button color="inherit" className={classes.navButton}>Login</Button>
+            {
+              loggedin ?
+                <Button color="inherit" className={classes.navButton}>
+                  <Avatar alt="user" src={this.props.user.avatar_url} className={classes.leftIcon} />
+                  {this.props.user.name}
+                </Button>
+            :
+                <Button color="inherit" className={classes.navButton}>Login</Button>
+            }
           </Toolbar>
         </AppBar>
       </div>
@@ -71,7 +88,21 @@ NavigationBar.propTypes = {
   classes: PropTypes.object.isRequired,
   title: PropTypes.string.isRequired,
   toggleDrawer: PropTypes.func.isRequired,
-  history: PropTypes.object.isRequired
+  route: PropTypes.string.isRequired,
+  loggedin: PropTypes.bool.isRequired,
+  user: PropTypes.object.isRequired
 }
 
-export default withRouter(withStyles(styles)(NavigationBar))
+function mapStateToProps(state) {
+  return {
+    user: state.user.userData.data
+  }
+}
+
+const enhance = compose(
+  withRouter,
+  connect(mapStateToProps),
+  withStyles(styles)
+)
+
+export default enhance(NavigationBar)

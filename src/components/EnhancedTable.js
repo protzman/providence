@@ -12,7 +12,6 @@ import Table, {
 } from 'material-ui/Table'
 import Toolbar from 'material-ui/Toolbar'
 import Typography from 'material-ui/Typography'
-import Paper from 'material-ui/Paper'
 import Checkbox from 'material-ui/Checkbox'
 import IconButton from 'material-ui/IconButton'
 import Tooltip from 'material-ui/Tooltip'

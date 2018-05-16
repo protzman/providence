@@ -1,18 +1,33 @@
 import React, { Component } from 'react'
-import Fade from 'material-ui/transitions/Fade'
+import { compose } from 'redux'
+import PropTypes from 'prop-types'
 import mapboxgl from 'mapbox-gl'
 import faker from 'faker'
-import { point, lineString } from '@turf/helpers'
-import bezierSpline from '@turf/bezier'
-import pointToLineDistance from '@turf/point-to-line-distance'
+import { withStyles } from 'material-ui/styles'
+import Button from 'material-ui/Button'
+import AddIcon from '@material-ui/icons/Add'
+import { point } from '@turf/helpers'
 import distance from '@turf/distance'
 import along from '@turf/along'
-import bearing from '@turf/bearing'
-import _ from 'lodash'
-
 import LoadScreen from './LoadScreen'
 
 mapboxgl.accessToken = 'pk.eyJ1Ijoic3Byb3R6bWFuIiwiYSI6ImNqOXJtYnFxZjAwbzkzMnBjb2xsZ2doaXkifQ.WWy_q1IKflDyt4mJxJyUEw'
+
+const styles = theme => ({
+  root: {
+    backgroundColor: theme.palette.background.paper,
+    width: 500,
+    position: 'relative',
+    minHeight: 200,
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing.unit * 6,
+    right: theme.spacing.unit * 6,
+    zIndex: 1300
+  }
+})
+
 
 class Map extends Component {
   constructor(props) {
@@ -219,6 +234,7 @@ class Map extends Component {
 
   render() {
     const { map } = this.state.map
+    const { classes } = this.props
     return (
       <div>
         {/* <Fade in={!this.state.loaded} timeout={400}>
@@ -230,9 +246,18 @@ class Map extends Component {
         <div ref={x => this.mapContainer = x} className="map absolute top right left bottom" >
           {map}
         </div>
+
+        <Button variant="fab" className={classes.fab} onClick={this.handleClick} >
+          <AddIcon />
+        </Button>
       </div>
     )
   }
 }
 
-export default Map
+Map.propTypes = {
+  classes: PropTypes.object.isRequired
+}
+
+const enhance = compose(withStyles(styles))
+export default enhance(Map)

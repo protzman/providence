@@ -1,6 +1,5 @@
-// This file is shared across the demos.
-
 import React, { Component } from 'react'
+import { compose } from 'redux'
 import { PropTypes } from 'prop-types'
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List'
 import ReactTooltip from 'react-tooltip'
@@ -17,7 +16,6 @@ import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive'
 import TimelineIcon from '@material-ui/icons/Timeline'
 
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
-import WifiLockIcon from '@material-ui/icons/WifiLock'
 import GpsFixedIcon from '@material-ui/icons/GpsFixed'
 import LeakAddIcon from '@material-ui/icons/LeakAdd'
 import VpnLockIcon from '@material-ui/icons/VpnLock'
@@ -74,7 +72,7 @@ class ActionsDrawerIcons extends Component {
             </ListItemIcon>
             <ListItemText primary="Proximity Crack" />
           </ListItem>
-          <ListItem button>
+          <ListItem button onClick={() => this.props.history.push('/map')}>
             <ListItemIcon>
               <VpnLockIcon />
             </ListItemIcon>
@@ -159,6 +157,12 @@ class ActionsDrawerIcons extends Component {
 
 ActionsDrawerIcons.propTypes = {
   classes: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 }
 
-export default withRouter(withStyles(styles, { withTheme: true })(ActionsDrawerIcons))
+const enhance = compose(
+  withRouter,
+  withStyles(styles, { withTheme: true })
+)
+
+export default enhance(ActionsDrawerIcons)

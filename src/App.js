@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { compose } from 'redux'
 import PropTypes from 'prop-types'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
@@ -17,6 +19,8 @@ import Threats from './components/Threats'
 import Map from './components/Map'
 import Metrics from './components/Metrics'
 import LoginPage from './components/LoginPage'
+
+import { loadUserPage } from './actions'
 
 const styles = ({
   // theme already delcared in upper scope so just use styles
@@ -79,6 +83,8 @@ class App extends Component {
 
   loginRequest(e) {
     this.setState({ loggedin: true })
+    console.log('making user request')
+    this.props.loadUserPage(e)
     this.props.history.push('/threats')
   }
 
@@ -91,6 +97,7 @@ class App extends Component {
 
           <NavigationBar
             title="Providence"
+            loggedin={this.state.loggedin}
             route={this.props.history.location.pathname}
             open={this.state.open}
             toggleDrawer={() => this.toggleDrawer()}
@@ -100,10 +107,6 @@ class App extends Component {
             open={this.state.open}
             onRequestClose={boolean => this.setState({ open: boolean })}
           /> : ''}
-
-          <Button variant="fab" className={classes.fab} onClick={this.handleClick} >
-            <AddIcon />
-          </Button>
 
           <Snackbar
             open={this.state.snack}
@@ -140,7 +143,22 @@ class App extends Component {
 
 App.propTypes = {
   classes: PropTypes.object.isRequired,
-  history: PropTypes.object.isRequired
+  history: PropTypes.object.isRequired,
+  loadUserPage: PropTypes.func.isRequired
 }
 
-export default withRouter(withStyles(styles)(App))
+function mapStateToProps(state) {
+  const { login } = true
+  // just bullshit
+  return { login }
+}
+
+const enhance = compose(
+  withRouter,
+  withStyles(styles),
+  connect(mapStateToProps, {
+    loadUserPage
+  })
+)
+
+export default enhance(App)

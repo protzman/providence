@@ -16,6 +16,18 @@ const styles = theme => ({
 })
 
 class LoginPage extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      userid: ''
+    }
+  }
+
+  handleUseridChange(e) {
+    console.log('userchange')
+    this.setState({ userid: e.target.value })
+  }
+
   render() {
     const { classes } = this.props
     return (
@@ -31,6 +43,8 @@ class LoginPage extends Component {
               fullWidth
               autoFocus
               placeholder="user id"
+              value={this.state.userid}
+              onChange={e => this.handleUseridChange(e)}
               startAdornment={
                 <InputAdornment position="start">
                   <PersonIcon />
@@ -58,7 +72,7 @@ class LoginPage extends Component {
               variant="flat"
               color="primary"
               className={classes.button}
-              onClick={e => this.props.login(e)}
+              onClick={() => this.props.login(this.state.userid)}
             >
                 login
             </Button>

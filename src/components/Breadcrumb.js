@@ -3,7 +3,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import ChevronIcon from '@material-ui/icons/ChevronRight'
 import Typography from 'material-ui/Typography'
-import Button from 'material-ui/Button'
 import IconButton from 'material-ui/IconButton'
 import { withStyles } from 'material-ui/styles'
 
