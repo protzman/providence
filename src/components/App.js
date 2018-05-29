@@ -6,21 +6,21 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
 import Button from 'material-ui/Button'
 import Snackbar from 'material-ui/Snackbar'
-import AddIcon from '@material-ui/icons/Add'
 import { withStyles } from 'material-ui/styles'
 import { Switch, Route, withRouter } from 'react-router-dom'
 
-import './App.css'
-import { theme } from './mui_theme'
-import NavigationBar from './components/NavigationBar'
-import ActionsDrawer from './components/ActionsDrawer'
-import Threats from './components/Threats'
+import '../App.css'
+import { theme } from '../mui_theme'
+import NavigationBar from '../components/NavigationBar'
+import ActionsDrawer from '../components/ActionsDrawer'
+import Threats from '../components/Threats'
 
-import Map from './components/Map'
-import Metrics from './components/Metrics'
-import LoginPage from './components/LoginPage'
+import Map from '../components/Map'
+import Metrics from '../components/Metrics'
+import LoginPage from '../components/LoginPage'
 
-import { loadUserPage } from './actions'
+import { fetchUserRequest } from '../actions'
+
 
 const styles = ({
   // theme already delcared in upper scope so just use styles
@@ -84,8 +84,8 @@ class App extends Component {
   loginRequest(e) {
     this.setState({ loggedin: true })
     console.log('making user request')
-    this.props.loadUserPage(e)
-    this.props.history.push('/threats')
+    this.props.fetchUserRequest(e)
+    // this.props.history.push('/threats')
   }
 
   render() {
@@ -144,7 +144,7 @@ class App extends Component {
 App.propTypes = {
   classes: PropTypes.object.isRequired,
   history: PropTypes.object.isRequired,
-  loadUserPage: PropTypes.func.isRequired
+  fetchUserRequest: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -153,12 +153,18 @@ function mapStateToProps(state) {
   return { login }
 }
 
+const mapDispatchToProps = dispatch => ({
+  fetchUserRequest(login) {
+    // dispatch the action FETCH_USER_REQUEST
+    dispatch(fetchUserRequest(login))
+  }
+})
+
+
 const enhance = compose(
   withRouter,
   withStyles(styles),
-  connect(mapStateToProps, {
-    loadUserPage
-  })
+  connect(mapStateToProps, mapDispatchToProps)
 )
 
 export default enhance(App)

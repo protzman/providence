@@ -15,6 +15,8 @@ import MenuIcon from '@material-ui/icons/Menu'
 import PersonIcon from '@material-ui/icons/Person'
 import Avatar from '@material-ui/core/Avatar'
 
+import { userSelector } from '../selectors'
+
 import Breadcrumb from './Breadcrumb'
 
 const styles = theme => ({
@@ -95,7 +97,7 @@ NavigationBar.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    user: state.user.userData.data
+    user: userSelector(state)
   }
 }
 

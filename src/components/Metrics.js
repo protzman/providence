@@ -23,7 +23,6 @@ import { Responsive, WidthProvider } from 'react-grid-layout'
 import ReactTooltip from 'react-tooltip'
 
 import NewChartDialog from './NewChartDialog'
-import { loadMetricsPage } from '../actions'
 
 const ResponsiveGridLayout = WidthProvider(Responsive)
 
@@ -198,13 +197,13 @@ class Metrics extends Component {
     this.state = {
       layout: {
         lg: [{
-          i: 'a', x: 0, y: 0, w: 4, h: 3, isResizeable: true
+          i: 'a', x: 0, y: 0, w: 4, h: 4, isResizeable: true
         },
         {
-          i: 'd', x: 6, y: 0, w: 8, h: 3, isResizeable: true
+          i: 'd', x: 6, y: 0, w: 8, h: 4, isResizeable: true
         },
         {
-          i: 'c', x: 0, y: 4, w: 12, h: 4, isResizeable: true
+          i: 'c', x: 0, y: 4, w: 12, h: 3, isResizeable: true
         }]
       },
       modal: false,
@@ -217,7 +216,6 @@ class Metrics extends Component {
   }
 
   componentDidMount() {
-    this.props.loadMetricsPage()
   }
 
   handleClickOpen = () => {
@@ -228,9 +226,7 @@ class Metrics extends Component {
     this.setState({ modal: false })
   }
 
-  handleMetricRemoval = (metricInfo) => {
-    console.log('removing metric')
-    console.log(metricInfo)
+  showRemoveMetricDialog = (metricInfo) => {
     this.setState({
       closeDialog: true,
       metricToDelete: {
@@ -238,6 +234,12 @@ class Metrics extends Component {
         title: metricInfo.title
       }
     })
+  }
+
+  confirmRemoveMetric = () => {
+    console.log('confirm delete')
+    console.log(this.state.metricToDelete.key)
+    // this.props.removeMetric(this.state.metricToDelete.key)
   }
 
   Transition = props => <Slide direction="up" {...props} />
@@ -252,7 +254,7 @@ class Metrics extends Component {
       <Typography variant="headline" classes={{ root: this.props.classes.root }}>
         {chart.title}
         <IconButton className={this.props.classes.clearIcon} color="primary">
-          <ClearIcon onClick={() => this.handleMetricRemoval(chart)} />
+          <ClearIcon onClick={() => this.showRemoveMetricDialog(chart)} />
         </IconButton>
       </Typography>
       {this.renderChart(chart)}
@@ -327,7 +329,7 @@ class Metrics extends Component {
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
         >
-          <DialogTitle id="alert-dialog-title">Delete Metric?</DialogTitle>
+          <DialogTitle id="alert-dialog-title">Remove Metric?</DialogTitle>
           <DialogContent>
             <DialogContentText
               id="alert-dialog-description"
@@ -340,8 +342,8 @@ class Metrics extends Component {
             <Button onClick={() => this.setState({ closeDialog: false })} color="primary">
               Keep
             </Button>
-            <Button onClick={this.handleClose} color="primary" autoFocus>
-              Yes, Delete
+            <Button onClick={this.confirmRemoveMetric} color="primary" autoFocus>
+              Yes, Remove
             </Button>
           </DialogActions>
         </Dialog>
@@ -353,7 +355,6 @@ class Metrics extends Component {
 
 Metrics.propTypes = {
   classes: PropTypes.object.isRequired,
-  loadMetricsPage: PropTypes.func.isRequired
 }
 
 function mapStateToProps(state) {
@@ -362,7 +363,6 @@ function mapStateToProps(state) {
 const enhance = compose(
   withStyles(styles),
   connect(mapStateToProps, {
-    loadMetricsPage
   })
 )
 
