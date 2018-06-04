@@ -1,10 +1,11 @@
 import { all, fork } from 'redux-saga/effects'
-import { watchFetchUserRequest } from './user'
+import { watchFetchUserRequest, watchPostUserRequest } from './user'
 
 
 function* clientSagas() {
   yield all([
-    fork(watchFetchUserRequest)
+    fork(watchFetchUserRequest),
+    fork(watchPostUserRequest)
   ])
 }
 

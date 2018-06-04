@@ -18,6 +18,7 @@ import Threats from '../components/Threats'
 import Map from '../components/Map'
 import Metrics from '../components/Metrics'
 import LoginPage from '../components/LoginPage'
+import SignupPage from '../components/SignupPage'
 
 import { fetchUserRequest } from '../actions'
 
@@ -130,6 +131,7 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/" render={() => <LoginPage login={e => this.loginRequest(e)} />} />
+            <Route exact path="/signup" component={SignupPage} />
             <Route exact path="/metrics" component={Metrics} />
             <Route exact path="/map" component={Map} />
             <Route exact path="/threats" component={Threats} />

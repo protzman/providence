@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { compose } from 'redux'
+import { withRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import { withStyles } from 'material-ui/styles'
 import Typography from 'material-ui/Typography'
@@ -26,6 +28,15 @@ class LoginPage extends Component {
   handleUseridChange(e) {
     console.log('userchange')
     this.setState({ userid: e.target.value })
+  }
+
+  handleCreateAccount() {
+    console.log('creating account')
+    this.props.history.push('/threats')
+  }
+
+  handleForgotPassword() {
+    console.log('forgot password')
   }
 
   render() {
@@ -77,6 +88,26 @@ class LoginPage extends Component {
                 login
             </Button>
           </div>
+          <div className="loginitem" style={{ position: 'inline' }}>
+            <Typography variant="caption" classes={{ root: classes.root }}>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={this.handleForgotPassword}
+                role="button"
+                aria-hidden
+              >Forgot Password?
+              </span>
+              <span style={{ margin: '0 1em' }}>|</span>
+              <span
+                style={{ cursor: 'pointer' }}
+                onClick={() => this.props.history.push('/signup')}
+                role="button"
+                aria-hidden
+              >Create Account
+              </span>
+            </Typography>
+
+          </div>
         </div>
       </div>
     )
@@ -85,7 +116,13 @@ class LoginPage extends Component {
 
 LoginPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  login: PropTypes.func.isRequired
+  login: PropTypes.func.isRequired,
+  history: PropTypes.object.isRequired
 }
 
-export default withStyles(styles)(LoginPage)
+const enhance = compose(
+  withRouter,
+  withStyles(styles)
+)
+
+export default enhance(LoginPage)
